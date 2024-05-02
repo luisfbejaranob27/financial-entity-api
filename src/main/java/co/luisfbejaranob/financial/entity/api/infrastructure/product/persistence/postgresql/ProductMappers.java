@@ -1,9 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql;
 
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
-import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientEntity;
 import co.luisfbejaranob.financial.entity.api.shared.enums.AccountTypeEnum;
-import co.luisfbejaranob.financial.entity.api.shared.enums.IdentificationTypeEnum;
 import co.luisfbejaranob.financial.entity.api.shared.enums.StatusEnum;
 
 public final class ProductMappers

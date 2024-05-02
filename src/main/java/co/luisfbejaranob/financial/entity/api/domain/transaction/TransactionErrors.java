@@ -6,7 +6,7 @@ public interface TransactionErrors
 {
   final class TransactionNotFound extends CustomError
   {
-    public TransactionNotFound(String id)
+    public TransactionNotFound(Long id)
     {
       super("105", "Transaction with ID '%s' not found".formatted(id));
     }
