@@ -5,8 +5,7 @@ import co.luisfbejaranob.financial.entity.api.domain.transaction.TransactionErro
 import co.luisfbejaranob.financial.entity.api.domain.transaction.TransactionRepository;
 import org.springframework.stereotype.Repository;
 
-import static co.luisfbejaranob.financial.entity.api.infrastructure.transaction.persistence.postgresql.TransactionMappers.fromRaw;
-import static co.luisfbejaranob.financial.entity.api.infrastructure.transaction.persistence.postgresql.TransactionMappers.from;
+import static co.luisfbejaranob.financial.entity.api.shared.mappers.TransactionMappers.*;
 
 @Repository
 public class TransactionRepositoryImpl implements TransactionRepository
@@ -20,7 +19,7 @@ public class TransactionRepositoryImpl implements TransactionRepository
 
     @Override
     public Transaction findById(Long id) {
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.findById(id)
                         .orElseThrow(() -> new TransactionNotFound(id))
         );
@@ -28,8 +27,8 @@ public class TransactionRepositoryImpl implements TransactionRepository
 
     @Override
     public Transaction create(Transaction transaction) {
-        return fromRaw(
-                jpaRepository.save(from(transaction))
+        return entityFromRaw(
+                jpaRepository.save(rawFromEntity(transaction))
         );
     }
 
@@ -39,7 +38,7 @@ public class TransactionRepositoryImpl implements TransactionRepository
         TransactionEntity transactionDb = jpaRepository.findById(transaction.getId())
                 .orElseThrow(() -> new TransactionNotFound(transaction.getId()));
 
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.save(updateValues(transactionDb, transaction))
         );
     }

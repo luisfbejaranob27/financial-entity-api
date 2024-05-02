@@ -1,6 +1,7 @@
-package co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql;
+package co.luisfbejaranob.financial.entity.api.shared.mappers;
 
 import co.luisfbejaranob.financial.entity.api.domain.client.Client;
+import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientEntity;
 import co.luisfbejaranob.financial.entity.api.shared.enums.IdentificationTypeEnum;
 
 public final class ClientMappers
@@ -8,7 +9,7 @@ public final class ClientMappers
     private ClientMappers()
     {}
 
-    static Client fromRaw(ClientEntity entity)
+    public static Client entityFromRaw(ClientEntity entity)
     {
         Client client = new Client();
         client.setId(entity.getId());
@@ -22,7 +23,7 @@ public final class ClientMappers
         return client;
     }
 
-    static ClientEntity from(Client client)
+    public static ClientEntity rawFromEntity(Client client)
     {
         return ClientEntity.builder()
                 .id(client.getId())

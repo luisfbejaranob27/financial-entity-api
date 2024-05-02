@@ -1,23 +1,27 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.product.controller;
 
+import co.luisfbejaranob.financial.entity.api.application.usecase.ProductUseCase;
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductErrors.ProductNotFound;
-import co.luisfbejaranob.financial.entity.api.domain.product.ProductRepository;
+import co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductEntity;
 import co.luisfbejaranob.financial.entity.api.shared.infrastructure.exception.dto.ErrorDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static co.luisfbejaranob.financial.entity.api.shared.mappers.ProductMappers.entityFromRaw;
+import static co.luisfbejaranob.financial.entity.api.shared.mappers.ProductMappers.entityFromRawPayload;
+
 @RestController
 @RequestMapping("products")
 public class ProductController
 {
-    private final ProductRepository productRepository;
+    private final ProductUseCase useCase;
 
-    public ProductController(ProductRepository productRepository)
+    public ProductController(ProductUseCase useCase)
     {
-        this.productRepository = productRepository;
+        this.useCase = useCase;
     }
 
     @GetMapping("{id}")
@@ -25,7 +29,7 @@ public class ProductController
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(productRepository.findById(id));
+                .body(useCase.findById(id));
     }
 
     @GetMapping("account-number/{number}")
@@ -33,31 +37,39 @@ public class ProductController
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(productRepository.findByAccountNumber(number));
+                .body(useCase.findByAccountNumber(number));
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@Valid @RequestBody Product product)
+    public ResponseEntity<Product> create(@Valid @RequestBody ProductEntity product)
     {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(productRepository.create(product));
+                .body(useCase.create(entityFromRawPayload(product)));
     }
 
     @PutMapping
-    public ResponseEntity<Product> update(@Valid @RequestBody Product product)
+    public ResponseEntity<Product> update(@Valid @RequestBody ProductEntity product)
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(productRepository.update(product));
+                .body(useCase.update(entityFromRaw(product)));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id)
+    @PutMapping("{id}/cancelled")
+    public ResponseEntity<Product> cancelled(@PathVariable Long id)
     {
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
+                .status(HttpStatus.OK)
+                .body(useCase.cancelled(id));
+    }
+
+    @PutMapping("{id}/inactive")
+    public ResponseEntity<Product> inactive(@PathVariable Long id)
+    {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(useCase.inactive(id));
     }
 
     @ExceptionHandler(ProductNotFound.class)

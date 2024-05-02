@@ -7,8 +7,7 @@ import co.luisfbejaranob.financial.entity.api.shared.enums.AccountTypeEnum;
 import co.luisfbejaranob.financial.entity.api.shared.enums.StatusEnum;
 import org.springframework.stereotype.Repository;
 
-import static co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductMappers.from;
-import static co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductMappers.fromRaw;
+import static co.luisfbejaranob.financial.entity.api.shared.mappers.ProductMappers.*;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository
@@ -22,7 +21,7 @@ public class ProductRepositoryImpl implements ProductRepository
 
     @Override
     public Product findById(Long id) {
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.findById(id)
                         .orElseThrow(() -> new ProductNotFound(id))
         );
@@ -30,7 +29,7 @@ public class ProductRepositoryImpl implements ProductRepository
 
     @Override
     public Product findByAccountNumber(String accountNumber) {
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.findByAccountNumber(accountNumber)
                         .orElseThrow(() -> new ProductNotFound(accountNumber))
         );
@@ -38,8 +37,8 @@ public class ProductRepositoryImpl implements ProductRepository
 
     @Override
     public Product create(Product product) {
-        return fromRaw(
-                jpaRepository.save(from(product))
+        return entityFromRaw(
+                jpaRepository.save(rawFromEntity(product))
         );
     }
 
@@ -49,7 +48,7 @@ public class ProductRepositoryImpl implements ProductRepository
         ProductEntity productDb = jpaRepository.findById(product.getId())
                 .orElseThrow(() -> new ProductNotFound(product.getId()));
 
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.save(updateValues(productDb, product))
         );
     }

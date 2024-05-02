@@ -1,6 +1,7 @@
-package co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql;
+package co.luisfbejaranob.financial.entity.api.shared.mappers;
 
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
+import co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductEntity;
 import co.luisfbejaranob.financial.entity.api.shared.enums.AccountTypeEnum;
 import co.luisfbejaranob.financial.entity.api.shared.enums.StatusEnum;
 
@@ -9,7 +10,17 @@ public final class ProductMappers
     private ProductMappers()
     {}
 
-    static Product fromRaw(ProductEntity entity)
+    public static Product entityFromRawPayload(ProductEntity entity)
+    {
+        Product product = new Product();
+        product.setAccountType(entity.getAccountType().name());
+        product.setBalance(entity.getBalance());
+        product.setGmfExempt(entity.getGmfExempt());
+
+        return product;
+    }
+
+    public static Product entityFromRaw(ProductEntity entity)
     {
         Product product = new Product();
         product.setId(entity.getId());
@@ -22,7 +33,7 @@ public final class ProductMappers
         return product;
     }
 
-    static ProductEntity from(Product product)
+    public static ProductEntity rawFromEntity(Product product)
     {
         return ProductEntity.builder()
                 .id(product.getId())
