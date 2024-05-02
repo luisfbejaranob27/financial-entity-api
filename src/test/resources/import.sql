@@ -1,0 +1,2 @@
+
+INSERT INTO clients (identification_type, identification_number, names, surnames, email, birth_date) VALUES ('CC', '1017128469', 'Luis Ferley', 'Bejarano Buritica', 'luisfbejaranob@outlook.com', '1986-04-27');

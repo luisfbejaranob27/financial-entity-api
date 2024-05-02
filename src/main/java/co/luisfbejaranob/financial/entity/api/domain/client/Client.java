@@ -21,6 +21,43 @@ public class Client
 
     private LocalDate birthDate;
 
+    public Client()
+    {}
+
+    public Client(String identificationType,
+                  String identificationNumber,
+                  String names,
+                  String surnames,
+                  String email,
+                  LocalDate birthDate
+    )
+    {
+        this.identificationType = identificationType;
+        this.identificationNumber = identificationNumber;
+        this.names = names;
+        this.surnames = surnames;
+        this.email = email;
+        this.birthDate = birthDate;
+    }
+
+    public Client(Long id,
+                  String identificationType,
+                  String identificationNumber,
+                  String names,
+                  String surnames,
+                  String email,
+                  LocalDate birthDate
+    )
+    {
+        this.id = id;
+        this.identificationType = identificationType;
+        this.identificationNumber = identificationNumber;
+        this.names = names;
+        this.surnames = surnames;
+        this.email = email;
+        this.birthDate = birthDate;
+    }
+
     public Long getId()
     {
         return id;
