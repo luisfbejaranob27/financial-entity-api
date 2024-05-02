@@ -14,12 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 class ClientRepositoryImplTest
 {
-
     private ClientRepository sut;
 
     @Autowired
     private JpaClientRepository repository;
-
 
     @BeforeEach
     void setUp()
@@ -31,16 +29,10 @@ class ClientRepositoryImplTest
     void findByIdFound()
     {
         Client client = ClientMother.getClient();
+
         Client clientFound = sut.findById(client.getId());
 
-        assertNotNull(client);
-        assertEquals(client.getId(), clientFound.getId());
-        assertEquals(client.getIdentificationType(), clientFound.getIdentificationType());
-        assertEquals(client.getIdentificationNumber(), clientFound.getIdentificationNumber());
-        assertEquals(client.getNames(), clientFound.getNames());
-        assertEquals(client.getSurnames(), clientFound.getSurnames());
-        assertEquals(client.getEmail(), clientFound.getEmail());
-        assertEquals(client.getBirthDate(), clientFound.getBirthDate());
+        assertEquals(client, clientFound);
     }
 
     @Test
@@ -72,6 +64,7 @@ class ClientRepositoryImplTest
     void createClient()
     {
         Client client = ClientMother.getPayloadClient();
+
         Client clientCreated = sut.create(client);
 
         assertNotNull(clientCreated.getId());

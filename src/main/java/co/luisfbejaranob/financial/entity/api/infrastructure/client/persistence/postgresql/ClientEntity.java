@@ -1,5 +1,6 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql;
 
+import co.luisfbejaranob.financial.entity.api.shared.enums.IdentificationTypeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -21,8 +22,11 @@ public class ClientEntity
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String identificationType;
+    @Enumerated(EnumType.STRING)
+    private IdentificationTypeEnum identificationType;
 
+    @Column(unique = true)
+    @Size(min = 10, max = 10)
     private String identificationNumber;
 
     @Size(min = 2)

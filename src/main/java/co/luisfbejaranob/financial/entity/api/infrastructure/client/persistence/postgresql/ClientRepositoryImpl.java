@@ -4,6 +4,7 @@ import co.luisfbejaranob.financial.entity.api.domain.client.Client;
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientErrors.ClientInsufficientAge;
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientErrors.ClientNotFound;
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientRepository;
+import co.luisfbejaranob.financial.entity.api.shared.enums.IdentificationTypeEnum;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -70,7 +71,7 @@ public class ClientRepositoryImpl implements ClientRepository
     {
         if(client.getIdentificationType() != null)
         {
-            clientBd.setIdentificationType(client.getIdentificationType());
+            clientBd.setIdentificationType(IdentificationTypeEnum.valueOf(client.getIdentificationType()));
         }
         if(client.getIdentificationNumber() != null)
         {

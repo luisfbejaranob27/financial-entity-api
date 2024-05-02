@@ -6,9 +6,14 @@ public interface ProductErrors
 {
   final class ProductNotFound extends CustomError
   {
-    public ProductNotFound(String id)
+    public ProductNotFound(Long id)
     {
       super("103", "Product with ID '%s' not found".formatted(id));
+    }
+
+    public ProductNotFound(String number)
+    {
+      super("103", "Product with account number '%s' not found".formatted(number));
     }
   }
 

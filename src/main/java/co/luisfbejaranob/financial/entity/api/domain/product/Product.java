@@ -1,5 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.domain.product;
 
+import java.util.Objects;
+
 public class Product
 {
     private Long id;
@@ -12,7 +14,42 @@ public class Product
 
     private Double balance;
 
-    private Boolean isGmfExempt;
+    private Boolean gmfExempt;
+
+    public Product()
+    {}
+
+    public Product(
+            String accountType,
+            String accountNumber,
+            String status,
+            Double balance,
+            Boolean gmfExempt
+    )
+    {
+        this.accountType = accountType;
+        this.accountNumber = accountNumber;
+        this.status = status;
+        this.balance = balance;
+        this.gmfExempt = gmfExempt;
+    }
+
+    public Product(
+            Long id,
+            String accountType,
+            String accountNumber,
+            String status,
+            Double balance,
+            Boolean gmfExempt
+    )
+    {
+        this.id = id;
+        this.accountType = accountType;
+        this.accountNumber = accountNumber;
+        this.status = status;
+        this.balance = balance;
+        this.gmfExempt = gmfExempt;
+    }
 
     public Long getId()
     {
@@ -61,10 +98,35 @@ public class Product
 
     public Boolean getGmfExempt()
     {
-        return isGmfExempt;
+        return gmfExempt;
     }
     public void setGmfExempt(Boolean gmfExempt)
     {
-        isGmfExempt = gmfExempt;
+        this.gmfExempt = gmfExempt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) &&
+                Objects.equals(accountType, product.accountType) &&
+                Objects.equals(accountNumber, product.accountNumber) &&
+                Objects.equals(status, product.status) &&
+                Objects.equals(balance, product.balance) &&
+                Objects.equals(gmfExempt, product.gmfExempt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                id,
+                accountType,
+                accountNumber,
+                status,
+                balance,
+                gmfExempt
+        );
     }
 }

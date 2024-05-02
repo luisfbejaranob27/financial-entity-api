@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Client
 {
@@ -120,5 +121,34 @@ public class Client
     public void setBirthDate(LocalDate birthDate)
     {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(id, client.id) &&
+                Objects.equals(identificationType, client.identificationType) &&
+                Objects.equals(identificationNumber, client.identificationNumber) &&
+                Objects.equals(names, client.names) &&
+                Objects.equals(surnames, client.surnames) &&
+                Objects.equals(email, client.email) &&
+                Objects.equals(birthDate, client.birthDate);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(
+                id,
+                identificationType,
+                identificationNumber,
+                names,
+                surnames,
+                email,
+                birthDate
+        );
     }
 }

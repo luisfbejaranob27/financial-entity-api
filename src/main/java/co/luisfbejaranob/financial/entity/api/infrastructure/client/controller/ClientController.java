@@ -5,6 +5,7 @@ import co.luisfbejaranob.financial.entity.api.domain.client.ClientErrors.ClientN
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientErrors.ClientInsufficientAge;
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientRepository;
 import co.luisfbejaranob.financial.entity.api.shared.infrastructure.exception.dto.ErrorDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,24 @@ public class ClientController
         this.clientRepository = clientRepository;
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Client> findById(@PathVariable Long id)
+    {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(clientRepository.findById(id));
+    }
+
+    @GetMapping("identification-number/{number}")
+    public ResponseEntity<Client> findByIdentificationNumber(@PathVariable String number)
+    {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(clientRepository.findByIdentificationNumber(number));
+    }
+
     @PostMapping
-    public ResponseEntity<Client> create(@RequestBody Client client)
+    public ResponseEntity<Client> create(@Valid @RequestBody Client client)
     {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -29,7 +46,7 @@ public class ClientController
     }
 
     @PutMapping
-    public ResponseEntity<Client> update(@RequestBody Client client)
+    public ResponseEntity<Client> update(@Valid @RequestBody Client client)
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
