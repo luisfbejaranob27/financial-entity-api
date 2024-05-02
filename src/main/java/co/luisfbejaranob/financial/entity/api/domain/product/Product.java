@@ -51,6 +51,16 @@ public class Product
         this.gmfExempt = gmfExempt;
     }
 
+    public void credit(Double amount)
+    {
+        this.balance += amount;
+    }
+
+    public void debit(Double amount)
+    {
+        this.balance -= amount;
+    }
+
     public Long getId()
     {
         return id;

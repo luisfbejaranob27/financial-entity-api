@@ -1,13 +1,14 @@
-package co.luisfbejaranob.financial.entity.api.infrastructure.transaction.persistence.postgresql;
+package co.luisfbejaranob.financial.entity.api.shared.mappers;
 
 import co.luisfbejaranob.financial.entity.api.domain.transaction.Transaction;
+import co.luisfbejaranob.financial.entity.api.infrastructure.transaction.persistence.postgresql.TransactionEntity;
 
 public final class TransactionMappers
 {
     private TransactionMappers()
     {}
 
-    static Transaction fromRaw(TransactionEntity entity)
+    public static Transaction entityFromRaw(TransactionEntity entity)
     {
         Transaction transaction = new Transaction();
         transaction.setId(entity.getId());
@@ -19,7 +20,7 @@ public final class TransactionMappers
         return transaction;
     }
 
-    static TransactionEntity from(Transaction transaction)
+    public static TransactionEntity rawFromEntity(Transaction transaction)
     {
         return TransactionEntity.builder()
                 .id(transaction.getId())

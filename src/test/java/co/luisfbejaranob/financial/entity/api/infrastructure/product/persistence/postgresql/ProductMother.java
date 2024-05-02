@@ -8,14 +8,9 @@ public final class ProductMother
     private ProductMother()
     {}
 
-    public static Product getPayloadProductSavingsAccount()
+    public static Product getPayloadProductSavingsAccountActive()
     {
-        return new Product("SAVINGS_ACCOUNT", buildAccountNumber(AccountTypeEnum.SAVINGS_ACCOUNT), "ACTIVE",1000000.0, true);
-    }
-
-    public static Product getPayloadProductCurrentAccount()
-    {
-        return new Product("CURRENT_ACCOUNT", buildAccountNumber(AccountTypeEnum.CURRENT_ACCOUNT), "ACTIVE",1000000.0, true);
+        return new Product("SAVINGS_ACCOUNT", "5312345678", "ACTIVE",1000000.0, true);
     }
 
     public static Product getProductSavingsAccountActive()
@@ -23,14 +18,9 @@ public final class ProductMother
         return new Product(1L, "SAVINGS_ACCOUNT", "5312345678", "ACTIVE",1000000.0, true);
     }
 
-    public static Product getProductSavingsAccountInactive()
+    public static Product getPayloadProductCurrentAccountActive()
     {
-        return new Product(1L, "SAVINGS_ACCOUNT", "5312345678", "INACTIVE",0.0, true);
-    }
-
-    public static Product getProductSavingsAccountCancelled()
-    {
-        return new Product(1L, "SAVINGS_ACCOUNT", "5312345678", "CANCELLED",0.0, true);
+        return new Product("CURRENT_ACCOUNT", "3312345678", "ACTIVE",1000000.0, true);
     }
 
     public static Product getProductCurrentAccountActive()
@@ -38,14 +28,14 @@ public final class ProductMother
         return new Product(2L, "CURRENT_ACCOUNT", "3312345678", "ACTIVE",1000000.0, true);
     }
 
-    public static Product getProductCurrentAccountInactive()
+    public static Product getPayloadProductCurrentAccountActiveBalanceZero()
     {
-        return new Product(2L, "CURRENT_ACCOUNT", "3312345678", "INACTIVE",0.0, true);
+        return new Product("CURRENT_ACCOUNT", "3312345678", "ACTIVE",0.0, true);
     }
 
-    public static Product getProductCurrentAccountCancelled()
+    public static Product getProductCurrentAccountActiveBalanceZero()
     {
-        return new Product(2L, "CURRENT_ACCOUNT", "3312345678", "CANCELLED",0.0, true);
+        return new Product(3L, "CURRENT_ACCOUNT", "3312345678", "ACTIVE",0.0, true);
     }
 
 

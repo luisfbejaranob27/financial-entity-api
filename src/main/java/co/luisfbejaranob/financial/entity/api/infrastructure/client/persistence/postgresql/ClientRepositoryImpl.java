@@ -10,8 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.Period;
 
-import static co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientMappers.from;
-import static co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientMappers.fromRaw;
+import static co.luisfbejaranob.financial.entity.api.shared.mappers.ClientMappers.*;
 
 @Repository
 public class ClientRepositoryImpl implements ClientRepository
@@ -26,7 +25,7 @@ public class ClientRepositoryImpl implements ClientRepository
     @Override
     public Client findById(Long id)
     {
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.findById(id)
                         .orElseThrow(() -> new ClientNotFound(id))
         );
@@ -35,7 +34,7 @@ public class ClientRepositoryImpl implements ClientRepository
     @Override
     public Client findByIdentificationNumber(String identificationNumber)
     {
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.findByIdentificationNumber(identificationNumber)
                         .orElseThrow(() -> new ClientNotFound(identificationNumber))
         );
@@ -46,8 +45,8 @@ public class ClientRepositoryImpl implements ClientRepository
     {
         if(isAdult(client))
         {
-            return fromRaw(
-                    jpaRepository.save(from(client))
+            return entityFromRaw(
+                    jpaRepository.save(rawFromEntity(client))
             );
         }
         else
@@ -62,7 +61,7 @@ public class ClientRepositoryImpl implements ClientRepository
         ClientEntity clientBd = jpaRepository.findById(client.getId())
                 .orElseThrow(() -> new ClientNotFound(client.getId()));
 
-        return fromRaw(
+        return entityFromRaw(
                 jpaRepository.save(updateValues(clientBd , client))
         );
     }

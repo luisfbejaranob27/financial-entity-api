@@ -28,7 +28,7 @@ class TransactionRepositoryImplTest
     @Test
     void findTransactionByIdFound()
     {
-        Transaction transaction = TransactionMother.getTransactionSavingsAccount();
+        Transaction transaction = TransactionMother.getTransactionSavingsAccountTransferBetweenAccounts();
 
         Transaction transactionFound = sut.findById(transaction.getId());
 
@@ -50,7 +50,7 @@ class TransactionRepositoryImplTest
     @Test
     void createTransaction()
     {
-        Transaction transaction = TransactionMother.getPayloadTransactionCurrentAccount();
+        Transaction transaction = TransactionMother.getTransactionSavingsAccountTransferBetweenAccounts();
 
         Transaction transactionCreated = sut.create(transaction);
 
@@ -64,7 +64,7 @@ class TransactionRepositoryImplTest
     @Test
     void updateTransaction()
     {
-        Transaction transaction = TransactionMother.getTransactionSavingsAccount();
+        Transaction transaction = TransactionMother.getTransactionSavingsAccountTransferBetweenAccounts();
         transaction.setAmount(300000.0);
 
         Transaction transactionUpdated = sut.update(transaction);

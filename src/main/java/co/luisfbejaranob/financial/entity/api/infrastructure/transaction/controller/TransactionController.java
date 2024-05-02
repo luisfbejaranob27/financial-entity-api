@@ -1,5 +1,6 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.transaction.controller;
 
+import co.luisfbejaranob.financial.entity.api.application.usecase.TransactionUseCase;
 import co.luisfbejaranob.financial.entity.api.domain.transaction.Transaction;
 import co.luisfbejaranob.financial.entity.api.domain.transaction.TransactionErrors.TransactionNotFound;
 import co.luisfbejaranob.financial.entity.api.domain.transaction.TransactionRepository;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("transactions")
 public class TransactionController
 {
-    private final TransactionRepository transactionRepository;
+    private final TransactionUseCase useCase;
 
-    public TransactionController(TransactionRepository transactionRepository)
+    public TransactionController(TransactionUseCase useCase)
     {
-        this.transactionRepository = transactionRepository;
+        this.useCase = useCase;
     }
 
     @GetMapping("{id}")
@@ -25,7 +26,7 @@ public class TransactionController
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(transactionRepository.findById(id));
+                .body(useCase.findById(id));
     }
 
     @PostMapping
@@ -33,15 +34,7 @@ public class TransactionController
     {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(transactionRepository.create(transaction));
-    }
-
-    @PutMapping
-    public ResponseEntity<Transaction> update(@Valid @RequestBody Transaction transaction)
-    {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(transactionRepository.update(transaction));
+                .body(useCase.create(transaction));
     }
 
     @ExceptionHandler(TransactionNotFound.class)

@@ -1,5 +1,6 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql;
 
+import co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductEntity;
 import co.luisfbejaranob.financial.entity.api.shared.enums.IdentificationTypeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -26,7 +27,6 @@ public class ClientEntity
     private IdentificationTypeEnum identificationType;
 
     @Column(unique = true)
-    @Size(min = 10, max = 10)
     private String identificationNumber;
 
     @Size(min = 2)
@@ -40,10 +40,11 @@ public class ClientEntity
 
     private LocalDate birthDate;
 
-    @Column(name = "create_at")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
+    private ProductEntity product;
+
     private Date createAt;
 
-    @Column(name = "update_at")
     private Date updateAt;
 
     @PrePersist

@@ -27,7 +27,7 @@ class ProductRepositoryImplTest
     @Test
     void findProductByIdFound()
     {
-        Product product = ProductMother.getProductCurrentAccountActive();
+        Product product = ProductMother.getProductSavingsAccountActive();
 
         Product productFound = sut.findById(product.getId());
 
@@ -61,7 +61,7 @@ class ProductRepositoryImplTest
     @Test
     void createProduct()
     {
-        Product product = ProductMother.getPayloadProductCurrentAccount();
+        Product product = ProductMother.getPayloadProductCurrentAccountActive();
 
         Product productCreated = sut.create(product);
 
@@ -76,7 +76,7 @@ class ProductRepositoryImplTest
     @Test
     void updateProduct()
     {
-        Product product = ProductMother.getProductCurrentAccountActive();
+        Product product = ProductMother.getProductSavingsAccountActive();
         product.setBalance(1200000.0);
 
         Product productUpdated = sut.update(product);
@@ -88,7 +88,7 @@ class ProductRepositoryImplTest
     @Test
     void deleteProduct()
     {
-        Product product = ProductMother.getProductCurrentAccountActive();
+        Product product = ProductMother.getProductSavingsAccountActive();
 
         sut.deleteById(product.getId());
 

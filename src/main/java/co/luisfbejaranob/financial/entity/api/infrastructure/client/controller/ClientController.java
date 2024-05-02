@@ -1,9 +1,9 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.client.controller;
 
+import co.luisfbejaranob.financial.entity.api.application.usecase.ClientUseCase;
 import co.luisfbejaranob.financial.entity.api.domain.client.Client;
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientErrors.ClientNotFound;
 import co.luisfbejaranob.financial.entity.api.domain.client.ClientErrors.ClientInsufficientAge;
-import co.luisfbejaranob.financial.entity.api.domain.client.ClientRepository;
 import co.luisfbejaranob.financial.entity.api.shared.infrastructure.exception.dto.ErrorDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("clients")
 public class ClientController
 {
-    private final ClientRepository clientRepository;
+    private final ClientUseCase useCase;
 
-    public ClientController(ClientRepository clientRepository)
+    public ClientController(ClientUseCase useCase)
     {
-        this.clientRepository = clientRepository;
+        this.useCase = useCase;
     }
 
     @GetMapping("{id}")
@@ -26,7 +26,7 @@ public class ClientController
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(clientRepository.findById(id));
+                .body(useCase.findById(id));
     }
 
     @GetMapping("identification-number/{number}")
@@ -34,7 +34,7 @@ public class ClientController
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(clientRepository.findByIdentificationNumber(number));
+                .body(useCase.findByIdentificationNumber(number));
     }
 
     @PostMapping
@@ -42,7 +42,7 @@ public class ClientController
     {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(clientRepository.create(client));
+                .body(useCase.create(client));
     }
 
     @PutMapping
@@ -50,13 +50,13 @@ public class ClientController
     {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(clientRepository.update(client));
+                .body(useCase.update(client));
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id)
     {
-        clientRepository.deleteById(id);
+        useCase.deleteById(id);
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
