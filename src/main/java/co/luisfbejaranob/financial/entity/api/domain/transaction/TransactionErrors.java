@@ -1,6 +1,6 @@
 package co.luisfbejaranob.financial.entity.api.domain.transaction;
 
-import co.luisfbejaranob.financial.entity.api.shared.core.CustomError;
+import co.luisfbejaranob.financial.entity.api.shared.infrastructure.exception.CustomError;
 
 public interface TransactionErrors
 {

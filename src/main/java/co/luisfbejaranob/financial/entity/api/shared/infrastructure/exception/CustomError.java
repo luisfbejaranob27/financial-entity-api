@@ -1,4 +1,4 @@
-package co.luisfbejaranob.financial.entity.api.shared.core;
+package co.luisfbejaranob.financial.entity.api.shared.infrastructure.exception;
 
 import java.io.Serial;
 

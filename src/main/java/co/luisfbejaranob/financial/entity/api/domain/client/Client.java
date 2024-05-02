@@ -1,5 +1,8 @@
 package co.luisfbejaranob.financial.entity.api.domain.client;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Client
@@ -16,7 +19,7 @@ public class Client
 
     private String email;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     public Long getId()
     {
@@ -72,11 +75,12 @@ public class Client
         this.email = email;
     }
 
-    public Date getBirthDate()
+    public LocalDate getBirthDate()
     {
         return birthDate;
     }
-    public void setBirthDate(Date birthDate)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    public void setBirthDate(LocalDate birthDate)
     {
         this.birthDate = birthDate;
     }
