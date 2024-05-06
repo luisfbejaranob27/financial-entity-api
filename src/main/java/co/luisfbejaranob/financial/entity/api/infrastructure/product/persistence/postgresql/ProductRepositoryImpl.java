@@ -1,5 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql;
 
+import co.luisfbejaranob.financial.entity.api.domain.client.Client;
+import co.luisfbejaranob.financial.entity.api.domain.client.ClientRepository;
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductErrors.ProductNotFound;
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductRepository;
@@ -14,9 +16,15 @@ public class ProductRepositoryImpl implements ProductRepository
 {
     private final JpaProductRepository jpaRepository;
 
-    public ProductRepositoryImpl(JpaProductRepository jpaRepository)
+    private final ClientRepository clientRepository;
+
+    public ProductRepositoryImpl(
+            JpaProductRepository jpaRepository,
+            ClientRepository clientRepository
+    )
     {
         this.jpaRepository = jpaRepository;
+        this.clientRepository = clientRepository;
     }
 
     @Override
@@ -36,9 +44,10 @@ public class ProductRepositoryImpl implements ProductRepository
     }
 
     @Override
-    public Product create(Product product) {
+    public Product create(Product product, String identificationNumber) {
+        Client client = clientRepository.findByIdentificationNumber(identificationNumber);
         return entityFromRaw(
-                jpaRepository.save(rawFromEntity(product))
+                jpaRepository.save(rawFromEntity(product , client))
         );
     }
 

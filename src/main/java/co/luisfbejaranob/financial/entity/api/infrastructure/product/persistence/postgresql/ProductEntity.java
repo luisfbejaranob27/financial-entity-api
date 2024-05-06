@@ -46,7 +46,7 @@ public class ProductEntity
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "product")
     private List<TransactionEntity> transactions;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private ClientEntity client;
 
     private Date createAt;

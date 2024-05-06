@@ -16,6 +16,11 @@ public final class ClientMother
         return new Client("CC", "19093465", "Eliecer", "Bejarano", "eliecer.bejarano@gmail.com", LocalDate.parse("1949-10-10"));
     }
 
+    public static Client getPayloadNewClient()
+    {
+        return new Client("CC", "987654321", "Malka Irina", "Bejarano Buritica", "malka.bejarano@gmail.com", LocalDate.parse("1975-06-27"));
+    }
+
     public static Client getPayloadClientMinor()
     {
         return new Client("TI", "19860427", "Luna", "Bejarano", "luna.bejarano@gmail.com", LocalDate.parse("2007-06-01"));
@@ -24,6 +29,16 @@ public final class ClientMother
     public static Client getClient()
     {
         return new Client(1L, "CC", "1017128469", "Luis Ferley", "Bejarano Buritica", "luisfbejaranob@outlook.com", LocalDate.parse("1986-04-27"));
+    }
+
+    public static Client getClient2()
+    {
+        return new Client(2L, "CC", "19093465", "Eliecer", "Bejarano", "eliecer.bejarano@gmail.com", LocalDate.parse("1949-10-10"));
+    }
+
+    public static Client getClient3()
+    {
+        return new Client(3L, "CC", "123456789", "Maria Catalina", "Bejarano Buritica", "catalina.bejarano@gmail.com", LocalDate.parse("1970-09-15"));
     }
 
     public static List<Client> getClientList()

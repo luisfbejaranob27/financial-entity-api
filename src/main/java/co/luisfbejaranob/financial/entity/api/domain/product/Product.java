@@ -1,5 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.domain.product;
 
+import co.luisfbejaranob.financial.entity.api.domain.client.Client;
+
 import java.util.Objects;
 
 public class Product
@@ -16,6 +18,8 @@ public class Product
 
     private Boolean gmfExempt;
 
+    private Client client;
+
     public Product()
     {}
 
@@ -24,7 +28,8 @@ public class Product
             String accountNumber,
             String status,
             Double balance,
-            Boolean gmfExempt
+            Boolean gmfExempt,
+            Client client
     )
     {
         this.accountType = accountType;
@@ -32,6 +37,7 @@ public class Product
         this.status = status;
         this.balance = balance;
         this.gmfExempt = gmfExempt;
+        this.client = client;
     }
 
     public Product(
@@ -40,7 +46,8 @@ public class Product
             String accountNumber,
             String status,
             Double balance,
-            Boolean gmfExempt
+            Boolean gmfExempt,
+            Client client
     )
     {
         this.id = id;
@@ -49,6 +56,7 @@ public class Product
         this.status = status;
         this.balance = balance;
         this.gmfExempt = gmfExempt;
+        this.client = client;
     }
 
     public void credit(Double amount)
@@ -113,6 +121,15 @@ public class Product
     public void setGmfExempt(Boolean gmfExempt)
     {
         this.gmfExempt = gmfExempt;
+    }
+
+    public Client getClient()
+    {
+        return client;
+    }
+    public void setClient(Client client)
+    {
+        this.client = client;
     }
 
     @Override

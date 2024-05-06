@@ -1,6 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql;
 
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
+import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientMother;
 import co.luisfbejaranob.financial.entity.api.shared.enums.AccountTypeEnum;
 
 public final class ProductMother
@@ -10,32 +11,32 @@ public final class ProductMother
 
     public static Product getPayloadProductSavingsAccountActive()
     {
-        return new Product("SAVINGS_ACCOUNT", "5312345678", "ACTIVE",1000000.0, true);
+        return new Product("SAVINGS_ACCOUNT", "5312345678", "ACTIVE",1000000.0, true, ClientMother.getClient());
     }
 
     public static Product getProductSavingsAccountActive()
     {
-        return new Product(1L, "SAVINGS_ACCOUNT", "5312345678", "ACTIVE",1000000.0, true);
+        return new Product(1L, "SAVINGS_ACCOUNT", "5312345678", "ACTIVE",1000000.0, true, ClientMother.getClient());
     }
 
     public static Product getPayloadProductCurrentAccountActive()
     {
-        return new Product("CURRENT_ACCOUNT", "3312345678", "ACTIVE",1000000.0, true);
+        return new Product("CURRENT_ACCOUNT", "3312345678", "ACTIVE",1000000.0, true, ClientMother.getClient2());
     }
 
     public static Product getProductCurrentAccountActive()
     {
-        return new Product(2L, "CURRENT_ACCOUNT", "3312345678", "ACTIVE",1000000.0, true);
+        return new Product(2L, "CURRENT_ACCOUNT", "3312345678", "ACTIVE",1000000.0, true, ClientMother.getClient2());
     }
 
     public static Product getPayloadProductCurrentAccountActiveBalanceZero()
     {
-        return new Product("CURRENT_ACCOUNT", "3312345678", "ACTIVE",0.0, true);
+        return new Product("CURRENT_ACCOUNT", "3312345678", "ACTIVE",0.0, true, ClientMother.getClient3());
     }
 
     public static Product getProductCurrentAccountActiveBalanceZero()
     {
-        return new Product(3L, "CURRENT_ACCOUNT", "3312345678", "ACTIVE",0.0, true);
+        return new Product(3L, "CURRENT_ACCOUNT", "3312345678", "ACTIVE",0.0, true, ClientMother.getClient3());
     }
 
 

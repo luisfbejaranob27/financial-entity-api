@@ -39,10 +39,10 @@ class ClientRepositoryImplTest
     void findByIdThrowClientNotFound()
     {
         Exception exception = assertThrows(ClientNotFound.class, () -> {
-            sut.findById(3L);
+            sut.findById(5L);
         });
 
-        String expectedMessage = "Client with ID '3' not found";
+        String expectedMessage = "Client with ID '5' not found";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -63,7 +63,7 @@ class ClientRepositoryImplTest
     @Test
     void createClient()
     {
-        Client client = ClientMother.getPayloadClient();
+        Client client = ClientMother.getPayloadNewClient();
 
         Client clientCreated = sut.create(client);
 
@@ -74,18 +74,6 @@ class ClientRepositoryImplTest
         assertEquals(client.getSurnames(), clientCreated.getSurnames());
         assertEquals(client.getEmail(), clientCreated.getEmail());
         assertEquals(client.getBirthDate(), clientCreated.getBirthDate());
-    }
-
-    @Test
-    void createClientThrowClientInsufficientAge()
-    {
-        Exception exception = assertThrows(ClientInsufficientAge.class, () ->
-                sut.create(ClientMother.getPayloadClientMinor()));
-
-        String expectedMessage = "Client is a minor and cannot register";
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -114,9 +102,9 @@ class ClientRepositoryImplTest
     void deleteClientThrowClientNotFound()
     {
         Exception exception = assertThrows(ClientNotFound.class, () ->
-                sut.deleteById(3L));
+                sut.deleteById(5L));
 
-        String expectedMessage = "Client with ID '3' not found";
+        String expectedMessage = "Client with ID '5' not found";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));

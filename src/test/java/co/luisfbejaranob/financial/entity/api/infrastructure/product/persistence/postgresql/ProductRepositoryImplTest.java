@@ -1,8 +1,12 @@
 package co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql;
 
+import co.luisfbejaranob.financial.entity.api.domain.client.ClientRepository;
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductErrors.ProductNotFound;
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductRepository;
+import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientMother;
+import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientRepositoryImpl;
+import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.JpaClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +20,18 @@ class ProductRepositoryImplTest
     private ProductRepository sut;
 
     @Autowired
-    private JpaProductRepository repository;
+    private JpaProductRepository productRepository;
+
+    ClientRepository clientRepository;
+
+    @Autowired
+    private JpaClientRepository jpaClientRepository;
 
     @BeforeEach
     void setUp()
     {
-        sut = new ProductRepositoryImpl(repository);
+        clientRepository = new ClientRepositoryImpl(jpaClientRepository);
+        sut = new ProductRepositoryImpl(productRepository, clientRepository);
     }
 
     @Test
@@ -62,8 +72,9 @@ class ProductRepositoryImplTest
     void createProduct()
     {
         Product product = ProductMother.getPayloadProductCurrentAccountActive();
+        String clientIdentificationNumber = ClientMother.getClient3().getIdentificationNumber();
 
-        Product productCreated = sut.create(product);
+        Product productCreated = sut.create(product, clientIdentificationNumber);
 
         assertNotNull(productCreated.getId());
         assertEquals(product.getAccountType(), productCreated.getAccountType());

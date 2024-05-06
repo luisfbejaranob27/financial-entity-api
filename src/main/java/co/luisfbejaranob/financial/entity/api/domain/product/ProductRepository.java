@@ -6,7 +6,7 @@ public interface ProductRepository
 
     Product findByAccountNumber(String accountNumber);
 
-    Product create(Product product);
+    Product create(Product product, String identificationNumber);
 
     Product update(Product product);
 

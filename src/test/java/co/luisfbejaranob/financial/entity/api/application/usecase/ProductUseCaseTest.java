@@ -1,6 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.application.usecase;
 
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductRepository;
+import co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence.postgresql.ClientMother;
 import co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductMother;
 import co.luisfbejaranob.financial.entity.api.shared.enums.StatusEnum;
 import org.junit.jupiter.api.Test;
@@ -52,30 +53,32 @@ class ProductUseCaseTest
     void createCurrentAccount()
     {
         var payload = ProductMother.getPayloadProductCurrentAccountActive();
+        var clientIdentificationNumber = ClientMother.getClient().getIdentificationNumber();
         var reference = ProductMother.getProductCurrentAccountActive();
-        given(repository.create(payload)).willReturn(reference);
+        given(repository.create(payload, clientIdentificationNumber)).willReturn(reference);
 
-        var product = sut.create(payload);
+        var product = sut.create(payload, clientIdentificationNumber);
 
         assertEquals(reference, product);
         assertTrue(product.getAccountNumber().startsWith("33"));
 
-        then(repository).should().create(payload);
+        then(repository).should().create(payload, clientIdentificationNumber);
     }
 
     @Test
     void createSavingsAccount()
     {
         var payload = ProductMother.getPayloadProductSavingsAccountActive();
+        var clientIdentificationNumber = ClientMother.getClient().getIdentificationNumber();
         var reference = ProductMother.getProductSavingsAccountActive();
-        given(repository.create(payload)).willReturn(reference);
+        given(repository.create(payload, clientIdentificationNumber)).willReturn(reference);
 
-        var product = sut.create(payload);
+        var product = sut.create(payload, clientIdentificationNumber);
 
         assertEquals(reference, product);
         assertTrue(product.getAccountNumber().startsWith("53"));
 
-        then(repository).should().create(payload);
+        then(repository).should().create(payload, clientIdentificationNumber);
     }
 
     @Test

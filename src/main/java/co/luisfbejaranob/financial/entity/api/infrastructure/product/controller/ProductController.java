@@ -45,7 +45,7 @@ public class ProductController
     {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(useCase.create(entityFromRawPayload(product)));
+                .body(useCase.create(entityFromRawPayload(product), product.getClient().getIdentificationNumber()));
     }
 
     @PutMapping

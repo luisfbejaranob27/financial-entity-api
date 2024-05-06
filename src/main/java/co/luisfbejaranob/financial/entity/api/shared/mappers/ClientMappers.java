@@ -9,7 +9,7 @@ public final class ClientMappers
     private ClientMappers()
     {}
 
-    public static Client entityFromRaw(ClientEntity entity)
+    public static Client entityFromClientRaw(ClientEntity entity)
     {
         Client client = new Client();
         client.setId(entity.getId());
@@ -23,7 +23,7 @@ public final class ClientMappers
         return client;
     }
 
-    public static ClientEntity rawFromEntity(Client client)
+    public static ClientEntity rawFromClientEntity(Client client)
     {
         return ClientEntity.builder()
                 .id(client.getId())

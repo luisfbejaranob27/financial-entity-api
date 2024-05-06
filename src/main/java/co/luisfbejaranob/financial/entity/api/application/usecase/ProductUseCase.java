@@ -1,5 +1,7 @@
 package co.luisfbejaranob.financial.entity.api.application.usecase;
 
+import co.luisfbejaranob.financial.entity.api.domain.client.Client;
+import co.luisfbejaranob.financial.entity.api.domain.client.ClientRepository;
 import co.luisfbejaranob.financial.entity.api.domain.product.Product;
 import co.luisfbejaranob.financial.entity.api.domain.product.ProductRepository;
 import co.luisfbejaranob.financial.entity.api.shared.enums.AccountTypeEnum;
@@ -11,9 +13,12 @@ public class ProductUseCase
 {
     private final ProductRepository repository;
 
-    public ProductUseCase(ProductRepository repository)
+    private final ClientRepository clientRepository;
+
+    public ProductUseCase(ProductRepository repository, ClientRepository clientRepository)
     {
         this.repository = repository;
+        this.clientRepository = clientRepository;
     }
 
     public Product findById(Long id)
@@ -26,7 +31,7 @@ public class ProductUseCase
         return repository.findByAccountNumber(accountNumber);
     }
 
-    public Product create(Product product)
+    public Product create(Product product, String identificationNumber)
     {
         product.setStatus(StatusEnum.ACTIVE.name());
 
@@ -39,7 +44,7 @@ public class ProductUseCase
             product.setAccountNumber(buildAccountNumber(AccountTypeEnum.SAVINGS_ACCOUNT));
         }
 
-        return repository.create(product);
+        return repository.create(product, identificationNumber);
     }
 
     private String buildAccountNumber(AccountTypeEnum accountType)

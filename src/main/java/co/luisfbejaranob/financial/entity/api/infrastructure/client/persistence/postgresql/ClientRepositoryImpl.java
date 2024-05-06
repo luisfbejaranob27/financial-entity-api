@@ -25,7 +25,7 @@ public class ClientRepositoryImpl implements ClientRepository
     @Override
     public Client findById(Long id)
     {
-        return entityFromRaw(
+        return entityFromClientRaw(
                 jpaRepository.findById(id)
                         .orElseThrow(() -> new ClientNotFound(id))
         );
@@ -34,7 +34,7 @@ public class ClientRepositoryImpl implements ClientRepository
     @Override
     public Client findByIdentificationNumber(String identificationNumber)
     {
-        return entityFromRaw(
+        return entityFromClientRaw(
                 jpaRepository.findByIdentificationNumber(identificationNumber)
                         .orElseThrow(() -> new ClientNotFound(identificationNumber))
         );
@@ -43,16 +43,9 @@ public class ClientRepositoryImpl implements ClientRepository
     @Override
     public Client create(Client client)
     {
-        if(isAdult(client))
-        {
-            return entityFromRaw(
-                    jpaRepository.save(rawFromEntity(client))
-            );
-        }
-        else
-        {
-            throw new ClientInsufficientAge();
-        }
+        return entityFromClientRaw(
+                jpaRepository.save(rawFromClientEntity(client))
+        );
     }
 
     @Override
@@ -61,7 +54,7 @@ public class ClientRepositoryImpl implements ClientRepository
         ClientEntity clientBd = jpaRepository.findById(client.getId())
                 .orElseThrow(() -> new ClientNotFound(client.getId()));
 
-        return entityFromRaw(
+        return entityFromClientRaw(
                 jpaRepository.save(updateValues(clientBd , client))
         );
     }
@@ -109,18 +102,5 @@ public class ClientRepositoryImpl implements ClientRepository
         {
             throw new ClientNotFound(id);
         }
-    }
-
-    private boolean isAdult(Client client)
-    {
-        if(client.getBirthDate() != null)
-        {
-            LocalDate hoy = LocalDate.now();
-            Period period = Period.between(client.getBirthDate(), hoy);
-
-            return period.getYears() >= 18;
-        }
-
-        return false;
     }
 }

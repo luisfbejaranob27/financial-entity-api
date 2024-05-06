@@ -2,6 +2,7 @@ package co.luisfbejaranob.financial.entity.api.infrastructure.client.persistence
 
 import co.luisfbejaranob.financial.entity.api.infrastructure.product.persistence.postgresql.ProductEntity;
 import co.luisfbejaranob.financial.entity.api.shared.enums.IdentificationTypeEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -38,6 +39,7 @@ public class ClientEntity
     @Email
     private String email;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthDate;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
